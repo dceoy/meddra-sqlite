@@ -1,0 +1,21 @@
+# ASCII files of MedDRA
+MSSO:
+  - llt
+  - pt
+  - hlt
+  - hlt_pt
+  - hlgt
+  - hlgt_hlt
+  - soc
+  - soc_hlgt
+  - mdhier
+  - intl_ord
+  - smq_list
+  - smq_content
+JMO:
+  - llt_j
+  - pt_j
+  - hlt_j
+  - hlgt_j
+  - soc_j
+  - smq_list_j

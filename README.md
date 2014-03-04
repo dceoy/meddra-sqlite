@@ -1,7 +1,7 @@
 MedDRA-SQLite
 =============
 
-Package for Using MedDRA/J with SQLite3
+Using MedDRA/J with SQLite3
 
 Database Generation
 -------------------
@@ -31,7 +31,7 @@ MSSO files require to be delete "$" at the end of lines. (JMO files do not.)
 Use "gsed" command (GNU sed) instead of "sed" on MacOSX.
 
 ```sh
-ls *.asc | grep -v _j | xargs sed -ie 's/\$$//g'
+ls *.asc | grep -v _j | xargs gsed -ie 's/\$$//g'
 rm *.asce
 cd ..
 ```

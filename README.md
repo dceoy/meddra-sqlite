@@ -10,7 +10,7 @@ Creating Tables and Indexes
 
 ```sh
 git clone https://github.com/d4i/meddra-sqlite.git
-cd meddraj-sqlite
+cd meddra-sqlite
 sqlite3 meddra.sqlite3 '.read schema_meddra.sql'
 ```
 
@@ -31,7 +31,7 @@ MSSO files require to be delete "$" at the end of lines. (JMO files do not.)
 Use "gsed" command (GNU sed) instead of "sed" on MacOSX.
 
 ```sh
-ls *.asc | grep -v _j | xargs gsed -ie 's/\$$//g'
+ls *.asc | grep -v _j | xargs sed -ie 's/\$$//g'
 rm *.asce
 cd ..
 ```

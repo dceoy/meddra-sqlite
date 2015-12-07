@@ -1,3 +1,4 @@
-/data/
-/*.sqlite3
-/*.sql.gz
+data/*
+!.gitkeep
+*.sqlite3
+*.sql.gz

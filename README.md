@@ -20,7 +20,6 @@ Import of MedDRA
 Preparation of ASCII Data
 
 ```sh
-$ mkdir data/
 $ awk '$1 == "-" { print $2 }' ascii_file_list.yml | xargs -I {} cp /path/to/ASCII_FILE_DIRECTORY/{}.asc data/
 $ cd data/
 $ nkf -w --overwrite *

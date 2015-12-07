@@ -1,49 +1,40 @@
 MedDRA-SQLite
 =============
 
-Using MedDRA/J with SQLite3
+Using MedDRA/J with SQLite3 on Linux or Mac OS X
 
-Database Generation
--------------------
+Supported MedDRA version: 18.0
 
-Creating Tables and Indexes
+Preparation
+-----------
 
 ```sh
 $ git clone https://github.com/dceoy/meddra-sqlite.git
 $ cd meddra-sqlite
-$ sqlite3 meddra.sqlite3 '.read schema_meddra.sql'
+$ cp /path/to/MEDDRA_ASCII_DIRECTORY/*.asc ascii/
 ```
 
-Import of MedDRA
+Automated Migration
+-------------------
+
+```sh
+$ ./migrate
+```
+
+Manual Migration
 ----------------
 
-Preparation of ASCII Data
+MSSO files require to be delete `$` at the end of lines. (JMO files do not.)
 
 ```sh
-$ awk '$1 == "-" { print $2 }' ascii_file_list.yml | xargs -I {} cp /path/to/ASCII_FILE_DIRECTORY/{}.asc data/
-$ cd data/
-$ nkf -w --overwrite *
-$ sed -ie 's/\r$//g' *
-$ sed -ie 's/"/\\"/g' *
-```
-
-MSSO files require to be delete "$" at the end of lines. (JMO files do not.)  
-Use "gsed" command (GNU sed) instead of "sed" on MacOSX.
-
-```sh
-$ ls *.asc | grep -v _j | xargs sed -ie 's/\$$//g'
-$ rm *e
-$ cd ..
-```
-
-Import of ASCII Data
-
-```sh
-$ awk '$1 == "-" { print $2 }' ascii_file_list.yml | xargs -I {} sqlite3 -separator $ meddra.sqlite3 '.import data/{}.asc {}'
-```
-
-Dump the Database
-
-```sh
-$ sqlite3 meddra.sqlite3 '.dump' | gzip -c > dump_meddra.sql.gz
+$ mkdir seed/ db/
+$ awk '$1 == "-" { print $2 }' ascii_file_list.yml \
+    | xargs -I {} bash -c 'nkf -w ascii/{}.asc | tr -d \\r > seed/{}.utf8'
+$ sed -ie 's/"/\\"/g' seed/*.utf8
+$ ls seed/*.utf8 | grep -v _j.utf8 | xargs sed -ie 's/\$$//g'
+$ rm seed/*.utf8e
+$ cat schema_meddra.sql | sqlite3 db/meddra.sqlite3
+$ awk '$1 == "-" { print $2 }' ascii_file_list.yml \
+    | xargs -I {} sqlite3 -separator $ db/meddra.sqlite3 '.import seed/{}.utf8 {}'
+$ sqlite3 db/meddra.sqlite3 '.dump' | gzip - > db/dump_meddra.sql.gz
 ```

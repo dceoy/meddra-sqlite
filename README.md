@@ -18,7 +18,7 @@ Automated Migration
 -------------------
 
 ```sh
-$ ./migrate
+$ ./migrate.sh
 ```
 
 Manual Migration

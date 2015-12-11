@@ -1,5 +1,5 @@
 -- MedDRA
--- sql script to create tables and indexes
+-- sql script to create tables and indices
 
 CREATE TABLE llt (
   llt_code SMALLINT NOT NULL,

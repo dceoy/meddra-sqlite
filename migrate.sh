@@ -5,7 +5,7 @@ set -ue
 MDR_SCHEMA_SQL="schema_meddra.sql"
 MDR_DB="db/meddra.sqlite3"
 MDR_DB_DUMP_GZ="db/dump_meddra.sql.gz"
-MDR_TABLES=$(awk '$1 == "-" { print $2 }' ascii_file_list.yml)
+MDR_TABLES=$(awk '$1 == "-" { print $2 }' table_list.yml)
 
 echo "> checking required system commands."
 which sed
@@ -14,9 +14,11 @@ which nkf
 which sqlite3
 
 echo "> creating the database."
-[[ -d db/ ]] || mkdir db/
-cat ${MDR_SCHEMA_SQL} | sqlite3 ${MDR_DB}
-sqlite3 ${MDR_DB} '.tables'
+if [ ! -f ${MDR_DB} ]; then
+  [[ -d db/ ]] || mkdir db/
+  cat ${MDR_SCHEMA_SQL} | sqlite3 ${MDR_DB}
+  sqlite3 ${MDR_DB} '.tables'
+fi
 
 echo "> migrating the MedDRA data..."
 if ls ascii/*.asc > /dev/null; then
@@ -30,7 +32,7 @@ if ls ascii/*.asc > /dev/null; then
     sqlite3 -separator $ ${MDR_DB} ".import seed/${t}.utf8 ${t}"  # migrate
   done
 else
-  echo "Set MedDRA ASCII files at ./ascii directory!"
+  echo "Put MedDRA ASCII files at ./ascii directory!"
   exit
 fi
 

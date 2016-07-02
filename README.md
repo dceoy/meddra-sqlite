@@ -3,17 +3,33 @@ MedDRA-SQLite
 
 Using MedDRA/J with SQLite3
 
-| MedDRA version | OS              | Depends         |
-|:--------------:|:---------------:|:---------------:|
-| 18.0           | Linux, Mac OS X | SQLite3, NKF    |
+Supported MedDRA version: 18.0
 
 Preparation
 -----------
 
-```sh
-$ git clone https://github.com/dceoy/meddra-sqlite.git
-$ cd meddra-sqlite
-```
+1.  Install SQLite3 and NKF
+
+    ```sh
+    # Ubuntu
+    $ sudo apt-get -y install sqlite3 nkf
+
+    # CentOS
+    $ sudo yum -y install sqlite nkf
+
+    # Fedora
+    $ sudo dnf -y install sqlite nkf
+
+    # Homebrew on MacOSX
+    $ brew install sqlite nkf
+    ```
+
+2.  Check out `meddra-sqlite`
+
+    ```sh
+    $ git clone https://github.com/dceoy/meddra-sqlite.git
+    $ cd meddra-sqlite
+    ```
 
 Automated Migration
 -------------------

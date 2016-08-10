@@ -1,6 +1,2 @@
-raw/*
-seed/*
-db/*.sqlite3
-db/*.sqlite3-journal
-db/*.sql.gz
-!.gitkeep
+ascii/*
+db/*
